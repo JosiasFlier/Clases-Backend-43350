@@ -1,0 +1,14 @@
+<div>
+    Hola {{user.name}}, tu rol es {{user.role}}
+</div>
+
+{{#if isProfessor}}
+    <div>
+        Las Frutas son;
+        <ul>
+            {{#each foods}}
+                <li>{{this.name}}</li>
+            {{/each}}
+        </ul>
+    </div>
+{{/if}}

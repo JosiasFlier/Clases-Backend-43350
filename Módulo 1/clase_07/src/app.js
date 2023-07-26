@@ -1,11 +1,11 @@
 import express from "express";
 
-let users = [
+const users = [
     { id: 1, name: "Josias", age: 29 },
     { id: 2, name: "Romina", age: 26 },
     { id: 3, name: "Adrian", age: 31 },
     { id: 4, name: "Emmanuel", age: 40 },
-];
+]; 
 
 const app = express();
 app.use(express.json()); // es para cuando usamos req.body
@@ -43,6 +43,7 @@ app.post("/users", (req, res) => {
     });
 });
 
+
 // METODO PUT
 
 app.put("/users/:id", (req, res) => {
@@ -61,6 +62,10 @@ app.put("/users/:id", (req, res) => {
     }
 });
 
+
+// (...) SINTAXIA DE PROPAGACION
+
+
 // METODO DELETED
 // app.delete("/users/:id", (req, res) => {
 //     const id = req.params.id;
@@ -69,17 +74,35 @@ app.put("/users/:id", (req, res) => {
 // });
 
 // deleted con splice
-app.delete("/users/:id", (req, res) => {
-    const id = req.params.id;
-    const index = users.findIndex((item) => item.id == id);
-    if (index !== -1) {
-        users.splice(index, 1);
-        res.status(200).json({ mensaje: "Usuario eliminado" });
-    } else {
-        res.status(404).json({ mensaje: "Usuario no encontrado" });
-    }
-});
+// app.delete("/users/:id", (req, res) => {
+//     const id = req.params.id;
+//     const index = users.findIndex((item) => item.id == id);
+//     if (index !== -1) {
+//         users.splice(index, 1);
+//         res.status(200).json({ mensaje: "Usuario eliminado" });
+//     } else {
+//         res.status(404).json({ mensaje: "Usuario no encontrado" });
+//     }
+// });
 
 
 
 app.listen(8080, () => console.log("Server App"));
+
+
+
+
+
+app.delete('/users/:id', (req, res) => {
+    const id = req.params.id
+    const userIndex = users.findIndex((item) => item.id == id)
+    const usuarioDeleted = users[userIndex.name]
+    if(userIndex !== -1) {
+        const usuarioDeleted = users[userIndex].name
+
+        users.splice(userIndex, 1)
+        res.status(200).json({mensaje: `Usuario elminado (${usuarioDeleted})`})
+    } else {
+        res.status(400).json({error: 'Usuario no encontrado'})
+    }
+}) 
