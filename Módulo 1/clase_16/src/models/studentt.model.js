@@ -15,7 +15,7 @@ const studentSchema = mongoose.Schema({
     }
 })
 
-studentSchema.pre('findOne', function() {
+studentSchema.pre('findOne', function(){
     this.populate('courses.course')
 })
 
