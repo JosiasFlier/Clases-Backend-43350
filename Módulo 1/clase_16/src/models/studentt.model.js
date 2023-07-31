@@ -1,24 +1,18 @@
 import mongoose from "mongoose";
 
-const studentSchema = mongoose.Schema({
+const studentSchema = mongoose.Schema ({
     first_name: String,
     last_name: String,
     courses: {
-        type: [{
-            _id: false,
-            course: {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: 'courses'
-            }
-        }],
-        default: []
+        type:[{ _id: false, course: { type: mongoose.Schema.Types.ObjectId, ref: 'courses',}}],
+        default:[]
     }
 })
 
-studentSchema.pre('findOne', function(){
+studentSchema.pre('findOne', function () {
     this.populate('courses.course')
 })
 
-const studentModel = mongoose.model('students', studentSchema)
+const studentModel = mongoose.model('student', studentSchema)
 
 export default studentModel
